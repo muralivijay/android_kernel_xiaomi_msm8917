@@ -239,6 +239,9 @@ struct common_dbs_data {
 
 /* Governor Per policy data */
 struct dbs_data {
+	struct cpufreq_frequency_table *freq_table;
+	bool freq_table_desc;
+	unsigned int freq_table_size;
 	struct common_dbs_data *cdata;
 	unsigned int min_sampling_rate;
 	int usage_count;
