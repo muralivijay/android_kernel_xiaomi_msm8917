@@ -97,22 +97,6 @@ static u8 config_info[SIZE_BATINFO] = {
 	#include "profile_WT702_88509_NT_DeSai.h"
 };
 
-static u8 config_info_desai[SIZE_BATINFO] = {
-	#include "profile_WT702_88509_NT_DeSai.h"
-};
-
-static u8 config_info_xinwangda[SIZE_BATINFO] = {
-	#include "profile_WT801_88509_NT_XinWangDa.h"
-};
-
-static u8 config_info_guanyu[SIZE_BATINFO] = {
-	#include "profile_WT902_88509_NT_GuangYu.h"
-};
-
-static u8 config_info_feimaotui[SIZE_BATINFO] = {
-	#include "profile_WT1001_88509_NT_Feimaotui.h"
-};
-
 /* write data to address */
 static int cw_i2c_write(
 	struct i2c_client *client,
@@ -1076,7 +1060,6 @@ err_irq_gpio_req:
 }
 #endif
 
-extern int battery_type_id ;
 static int cw_bat_probe(struct i2c_client *client, const struct i2c_device_id *id)
 {
 	struct cw_bat_platform_data *pdata = client->dev.platform_data;
@@ -1084,7 +1067,7 @@ static int cw_bat_probe(struct i2c_client *client, const struct i2c_device_id *i
 	int ret;
 	int loop = 0;
 
-	printk("\ncw2015/cw2013 driver v1.2 probe start, battery_type_id is %d\n", battery_type_id);
+	printk("\ncw2015/cw2013 driver v1.2 probe start\n");
 
 	cw_bat = kzalloc(sizeof(struct cw_battery), GFP_KERNEL);
 	if (!cw_bat) {
@@ -1113,24 +1096,7 @@ static int cw_bat_probe(struct i2c_client *client, const struct i2c_device_id *i
 		dev_err(&client->dev, "Invalid pdata\n");
 		return -EINVAL;
 	}
-
-
-	if (battery_type_id == 0) {
-		pdata->cw_bat_config_info  = config_info_desai ;
-	} else if (battery_type_id == 1) {
-		pdata->cw_bat_config_info  = config_info_feimaotui ;
-
-	} else if (battery_type_id == 2) {
-		pdata->cw_bat_config_info  = config_info_guanyu ;
-
-	} else if (battery_type_id == 3) {
-		pdata->cw_bat_config_info  = config_info_xinwangda;
-
-	} else {
-		pdata->cw_bat_config_info  = config_info;
-
-	}
-
+	pdata->cw_bat_config_info  = config_info;
 
 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
 		dev_err(&client->dev, "I2C not supported\n");
