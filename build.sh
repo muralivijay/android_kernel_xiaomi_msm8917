@@ -61,7 +61,7 @@ fi
 # ==================================
 # point CROSS_COMPILE to the folder of the desired toolchain
 # don't forget to specify the prefix. Mine is: aarch64-linux-android-
-CROSS_COMPILE=$LOUP_WORKING_DIR/aarch64-linux-android-7.x/bin/aarch64-linux-android-
+CROSS_COMPILE=$LOUP_WORKING_DIR/aarch64-linux-android-4.9/bin/aarch64-linux-android-
 
 # Are we using ccache?
 if [ -n "$USE_CCACHE" ] 
