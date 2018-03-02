@@ -353,7 +353,7 @@ int gt1x_power_switch(int on)
 		ret = regulator_disable(vdd_ana);
 	}
 	
-	usleep(10000);
+	udelay(10000);
 	return ret;
 	
 }
