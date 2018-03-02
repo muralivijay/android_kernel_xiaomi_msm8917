@@ -18,7 +18,7 @@ export LOUP_WORKING_DIR=$(dirname "$(pwd)")
 # Menuconfig configuration
 # ================
 # If -no-menuconfig flag is present we will skip the kernel configuration step.
-# Make operation will use santoni_defconfig directly.
+# Make operation will use ugglite_defconfig directly.
 if [[ "$*" == *"-no-menuconfig"* ]]
 then
   NO_MENUCONFIG=1
@@ -76,13 +76,13 @@ fi
 if [ -n "$NO_MENUCONFIG" ]
 then
   echo -e "> Skipping menuconfig...\n"
-  echo -e "> Starting kernel compilation using santoni_defconfig file directly...\n"
+  echo -e "> Starting kernel compilation using ugglite_defconfig file directly...\n"
 else
   if [ -f ".config" ]
   then    
     echo -e "\033[0;32m> Config file already exists\033[0;0m\n"
   else
-    echo -e "\033[0;31m> Config file not found, copying santoni_defconfig as .config...\033[0;0m\n" 
+    echo -e "\033[0;31m> Config file not found, copying ugglite_defconfig as .config...\033[0;0m\n" 
     cp arch/arm64/configs/ugglite_defconfig .config
   fi
   echo -e "> Opening .config file...\n"
