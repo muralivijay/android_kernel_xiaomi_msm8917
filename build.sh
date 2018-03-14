@@ -1,4 +1,4 @@
-#!/bin/bash
+s#!/bin/bash
 clear
 echo "#########################################"
 echo "##### LOUP Kernel - Build Script ########"
@@ -38,15 +38,15 @@ then
   # run this script with -clear-ccache
   if [[ "$*" == *"-clear-ccache"* ]]
   then
-    echo -e "\n\033[0;31m> Cleaning $LOUP_WORKING_DIR/.ccache contents\033[0;0m" 
-    rm -rf "$LOUP_WORKING_DIR/.ccache"
+    echo -e "\n\033[0;31m> Cleaning $LOUP_WORKING_DIR/../.ccache contents\033[0;0m" 
+    rm -rf "$LOUP_WORKING_DIR/../.ccache"
   fi
   # If you want to build *without* using ccache
   # run this script with -no-ccache flag
   if [[ "$*" != *"-no-ccache"* ]] 
   then
     export USE_CCACHE=1
-    export CCACHE_DIR="$LOUP_WORKING_DIR/.ccache"
+    export CCACHE_DIR="$LOUP_WORKING_DIR/../.ccache"
     export CCACHE_MAX_SIZE=2G
     echo -e "\n> $(ccache -M $CCACHE_MAX_SIZE)"
     echo -e "\n\033[0;32m> Using ccache, to disable it run this script with -no-ccache\033[0;0m\n"
@@ -61,7 +61,7 @@ fi
 # ==================================
 # point CROSS_COMPILE to the folder of the desired toolchain
 # don't forget to specify the prefix. Mine is: aarch64-linux-android-
-CROSS_COMPILE=$LOUP_WORKING_DIR/aarch64-linux-android-4.9/bin/aarch64-linux-android-
+CROSS_COMPILE=$LOUP_WORKING_DIR/../aarch64-linux-android-4.9/bin/aarch64-linux-android-
 
 # Are we using ccache?
 if [ -n "$USE_CCACHE" ] 
@@ -100,7 +100,7 @@ start=$SECONDS
 # To see how it works, check the Makefile ... file, 
 # line 625 to 628, located in the root dir of this kernel.
 KBUILD_LOUP_CFLAGS="-Wno-misleading-indentation -Wno-bool-compare -mtune=cortex-a53 -march=armv8-a+crc+simd+crypto -mcpu=cortex-a53 -O2" 
-KBUILD_LOUP_CFLAGS=$KBUILD_LOUP_CFLAGS ARCH=arm64 SUBARCH=arm64 CROSS_COMPILE=$CROSS_COMPILE $MAKE_STATEMENT -j5
+KBUILD_LOUP_CFLAGS=$KBUILD_LOUP_CFLAGS ARCH=arm64 SUBARCH=arm64 CROSS_COMPILE=$CROSS_COMPILE $MAKE_STATEMENT -j2
 
 # Get current kernel version
 LOUP_VERSION=$(head -n3 Makefile | sed -E 's/.*(^\w+\s[=]\s)//g' | xargs | sed -E 's/(\s)/./g')
