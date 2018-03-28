@@ -173,7 +173,7 @@
 	apq8037-pmi8950-mtp.dtb \
 	apq8037-pmi8937-mtp.dtb
 
-dtb-$(CONFIG_ARCH_MSM8917) += msm8917-ugglite.dtb
+dtb-$(CONFIG_ARCH_MSM8917) += msm8917-rolex.dtb
 #               msm8917-rumi.dtb \
 #	apq8017-pmi8937-cdp.dtb \
 #	apq8017-pmi8937-mtp.dtb \
