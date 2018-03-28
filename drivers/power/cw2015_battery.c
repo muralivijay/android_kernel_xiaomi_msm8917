@@ -93,6 +93,26 @@ struct cw_battery {
 	struct pinctrl_state *pinctrl_state_release;
 };
 
+static u8 config_info[SIZE_BATINFO] = {
+	#include "profile_WT702_88509_NT_DeSai.h"
+};
+
+static u8 config_info_desai[SIZE_BATINFO] = {
+	#include "profile_WT702_88509_NT_DeSai.h"
+};
+
+static u8 config_info_xinwangda[SIZE_BATINFO] = {
+	#include "profile_WT801_88509_NT_XinWangDa.h"
+};
+
+static u8 config_info_guanyu[SIZE_BATINFO] = {
+	#include "profile_WT902_88509_NT_GuangYu.h"
+};
+
+static u8 config_info_feimaotui[SIZE_BATINFO] = {
+	#include "profile_WT1001_88509_NT_Feimaotui.h"
+};
+
 /* write data to address */
 static int cw_i2c_write(
 	struct i2c_client *client,
