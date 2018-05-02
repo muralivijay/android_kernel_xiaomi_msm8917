@@ -3606,6 +3606,10 @@ static void ffs_closed(struct ffs_data *ffs)
 	    || !atomic_read(&opts->func_inst.group.cg_item.ci_kref.refcount))
 		goto done;
 
+	ffs_dev_unlock();
+
+	if (test_bit(FFS_FL_BOUND, &ffs->flags))
+	return;
 done:
 	ffs_dev_unlock();
 }
