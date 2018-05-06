@@ -1,3 +1,4 @@
+
 /*
  *   (Tentative) USB Audio Driver for ALSA
  *
@@ -2193,7 +2194,7 @@ static int parse_audio_unit(struct mixer_build *state, int unitid)
 static void snd_usb_mixer_free(struct usb_mixer_interface *mixer)
 {
 	/* kill pending URBs */
-	snd_usb_mixer_disconnect(&mixer->list);
+	snd_usb_mixer_disconnect(mixer);
 
 	kfree(mixer->id_elems);
 	if (mixer->urb) {
@@ -2528,9 +2529,6 @@ _error:
 
 void snd_usb_mixer_disconnect(struct usb_mixer_interface *mixer)
 {
-	struct usb_mixer_interface *mixer;
-
-	mixer = list_entry(p, struct usb_mixer_interface, list);
 	if (mixer->disconnected)
 		return;
 	if (mixer->urb)
@@ -2618,3 +2616,4 @@ int snd_usb_mixer_resume(struct usb_mixer_interface *mixer, bool reset_resume)
 	return snd_usb_mixer_activate(mixer);
 }
 #endif
+
