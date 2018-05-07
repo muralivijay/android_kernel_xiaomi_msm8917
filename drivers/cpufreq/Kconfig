@@ -120,7 +120,16 @@ config CPU_FREQ_DEFAULT_GOV_INTERACTIVE
 	  Use the CPUFreq governor 'interactive' as default. This allows
 	  you to get a full dynamic cpu frequency capable system by simply
 	  loading your cpufreq low-level hardware driver, using the
-	  'interactive' governor for latency-sensitive workloads.
+	  'interactive' governor for latency-sensitive workloads.	  
+
+config CPU_FREQ_DEFAULT_GOV_IMPULSE
+	bool "impulse"
+	select CPU_FREQ_GOV_IMPULSE
+	help
+	  Use the CPUFreq governor 'impulse' as default. This allows
+	  you to get a full dynamic cpu frequency capable system by simply
+	  loading your cpufreq low-level hardware driver, using the
+	  'impulse' governor for latency-sensitive workloads.
 
 config CPU_FREQ_DEFAULT_GOV_SCHED
 	bool "sched"
@@ -197,6 +206,14 @@ config CPU_FREQ_GOV_INTERACTIVE
 	  interactive workloads.
 
 	  For details, take a look at linux/Documentation/cpu-freq.
+
+	  If in doubt, say N.
+
+config CPU_FREQ_GOV_IMPULSE
+	tristate "'interactive' cpufreq policy governor"
+	help
+	  'impulse' - This driver adds a dynamic cpufreq policy governor
+	  designed for latency-sensitive workloads.
 
 	  If in doubt, say N.
 
