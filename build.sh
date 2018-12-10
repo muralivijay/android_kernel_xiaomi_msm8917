@@ -17,8 +17,21 @@ git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarc
 echo "${blu}Make clean build?${txtrst}"
 select yn in "Yes" "No"; do
     case $yn in
-        Yes ) make clean && make mrproper && ~/AnyKernel2/cleanup.sh ; break;;
+        Yes ) make clean && make mrproper; break;;
         No ) break;;
+    esac
+done
+
+# Make Sure Cleanup Any2kernel dir build
+echo " Check your Home dir Any2kernel_teamlions Cloned           "
+echo " Make sure run cleanup.sh script if you are clean building "
+echo " Else when Compress zip it will become Dirty pack Remember "
+echo " Do it first                                               "
+echo "${blu} Are You Done this step ?${txtrst}"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) echo " Good You can Continue to build" ; break;;
+        No ) echo " You must run Clean step before building kernel exiting " && exit ; break;;
     esac
 done
 
