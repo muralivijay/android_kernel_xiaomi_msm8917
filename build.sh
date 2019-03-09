@@ -98,9 +98,8 @@ export ARCH=arm64 && export SUBARCH=arm64 && make rolex_defconfig && make menuco
 # Build Process
 echo -e "${GREEN}> Opening rolex_config file...\n${NC}"
 echo -e ">${GREEN} Starting kernel compilation using${NC} ${BLUE}rolex_defconfig${NC} ${GREEN}file...\n${NC}"
-  CROSS_COMPILE=$CROSS_COMPILE make -j$( nproc --all )
-
 start=$SECONDS
+  CROSS_COMPILE=$CROSS_COMPILE make -j$( nproc --all )
 
 # Get current kernel version
 KERNEL_VERSION=$(head -n3 Makefile | sed -E 's/.*(^\w+\s[=]\s)//g' | xargs | sed -E 's/(\s)/./g')
