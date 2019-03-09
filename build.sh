@@ -1,20 +1,31 @@
 #!/bin/bash
 # Author- Muralivijay, bitrvmpd
+
+# Set Message Color Variables
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+WHITE='\033[1m'
+NC='\033[0m'
+
+# Clear Screen before staring our script
 clear
-echo "#########################################"
-echo "##### rolex Kernel - Build Script ########"
-echo "#########################################"
+
+# Heading
+echo -e "${WHITE}###########################################${NC}"
+echo -e "${WHITE}##### rolex Kernel - Build Script  ########${NC}"
+echo -e "${WHITE}###########################################${NC}"
 
 # Any2kernel2
-echo "Clone Any2kernel2 if you don,t have "
+echo -e "${GREEN}Clone Any2kernel2 if you don,t have${NC}"
 git clone https://github.com/muralivijay/AnyKernel2.git -b pie-rolex ~/AnyKernel2
 
 # Toolchain
-echo "Clone aarch64-linux-android-4.9 toolchain if you don,t have "
+echo -e "${GREEN}Clone aarch64-linux-android-4.9 toolchain if you don,t have${NC} "
 git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b master ~/aarch64-linux-android-4.9
 
 # Make clean build
-echo "${blu}Make clean build?${txtrst}"
+echo -e "${blu}${BLUE}Make clean build?${NC}${txtrst}"
 select yn in "Yes" "No"; do
     case $yn in
         Yes ) make clean && make mrproper; break;;
@@ -23,15 +34,16 @@ select yn in "Yes" "No"; do
 done
 
 # Make Sure Cleanup Any2kernel dir build
-echo " Check your Home dir Any2kernel_teamlions Cloned           "
-echo " Make sure run cleanup.sh script if you are clean building "
-echo " Else when Compress zip it will become Dirty pack Remember "
-echo " Do it first                                               "
-echo "${blu} Are You Done this step ?${txtrst}"
+echo -e "${GREEN} Check your Home dir Any2kernel_teamlions Cloned ${NC}           "
+echo -e "${GREEN} Make sure run cleanup.sh script if you are clean building ${NC} "
+echo -e "${GREEN} Else when Compress zip it will become Dirty pack Remember ${NC} "
+echo -e "${RED} Do it first ${NC}"
+echo -e "${BLUE} Or ==>experiment<== you can build kernel with dirty but any2kernel_teamlions must be run clean step before doing this ${NC}"
+echo -e "${blu}${BLUE} Are You Done this step ?${NC}${txtrst}"
 select yn in "Yes" "No"; do
     case $yn in
-        Yes ) echo " Good You can Continue to build" ; break;;
-        No ) echo " You must run Clean step before building kernel exiting " && exit ; break;;
+        Yes ) echo -e "${GREEN}Good You can Continue to build${NC}" ; break;;
+        No ) echo -e "${RED}You must run Clean step before building kernel. now stoping build${NC} " && exit ; break;;
     esac
 done
 
@@ -52,7 +64,7 @@ then
   fi
   # If you want to build *without* using ccache
   # run this script with -no-ccache flag
-  if [[ "$*" != *"-no-ccache"* ]] 
+  if [[ "$*" != *"-no-ccache"* ]]
   then
     export USE_CCACHE=1
     export CCACHE_DIR=~/.ccache
@@ -79,19 +91,21 @@ then
 fi
 
 # Export ARCH-arm64 & Launch rolex
-export ARCH=arm64 && export SUBARCH=arm64 && make rolex_defconfig
+echo -e "${GREEN} Config Kernel if you want add or disable any driver or feature${NC} "
+echo "                                                                "
+export ARCH=arm64 && export SUBARCH=arm64 && make rolex_defconfig && make menuconfig
 
 # Build Process
-echo -e "> Opening rolex_config file...\n"
-echo -e "> Starting kernel compilation using rolex_defconfig file...\n"
+echo -e "${GREEN}> Opening rolex_config file...\n${NC}"
+echo -e ">${GREEN} Starting kernel compilation using${NC} ${BLUE}rolex_defconfig${NC} ${GREEN}file...\n${NC}"
   CROSS_COMPILE=$CROSS_COMPILE make -j$( nproc --all )
 
 start=$SECONDS
 
 # Get current kernel version
 KERNEL_VERSION=$(head -n3 Makefile | sed -E 's/.*(^\w+\s[=]\s)//g' | xargs | sed -E 's/(\s)/./g')
-echo -e "\n\n> Packing rolex Kernel v$KERNEL_VERSION\n\n"
-# Pack the kernel as a flashable TWRP zip. Oreo Edition
+echo -e "\n\n> ${GREEN}Packing rolex Kernel v$KERNEL_VERSION\n\n${NC}"
+# Pack the kernel as a flashable TWRP zip. Pie Edition
 ~/AnyKernel2/build.sh $KERNEL_VERSION PIE
 
 end=$SECONDS
