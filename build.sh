@@ -34,11 +34,11 @@ select yn in "Yes" "No"; do
 done
 
 # Make Sure Cleanup Any2kernel dir build
-echo -e "${GREEN} Check your Home dir Any2kernel_teamlions Cloned ${NC}           "
+echo -e "${GREEN} Check your Home dir Anykernel2 Cloned ${NC} "
 echo -e "${GREEN} Make sure run cleanup.sh script if you are clean building ${NC} "
 echo -e "${GREEN} Else when Compress zip it will become Dirty pack Remember ${NC} "
 echo -e "${RED} Do it first ${NC}"
-echo -e "${BLUE} Or ==>experiment<== you can build kernel with dirty but any2kernel_teamlions must be run clean step before doing this ${NC}"
+echo -e "${BLUE} Or ==>experiment<== you can build kernel with dirty but Anykernel2 must be run clean step before doing this ${NC}"
 echo -e "${blu}${BLUE} Are You Done this step ?${NC}${txtrst}"
 select yn in "Yes" "No"; do
     case $yn in
